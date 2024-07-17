@@ -1,8 +1,9 @@
 isEnabled: true
-image:
-  imageFrom: europe-west3-docker.pkg.dev/brdata-live/cloud-deploy-images/br24-suppl-comment-detector-base-image
+image: python:3.10-slim-bullseye
+install:
+  command: apt update && pip install -r requirements.txt
 run:
-  command: /opt/venv/bin/python3.9 -m uvicorn api:APP --host 0.0.0.0 --port 3000
+  command: python api.py
 settings:
   type: service
   security:
