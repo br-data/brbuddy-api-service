@@ -1,16 +1,13 @@
-isEnabled: false
-image: node
-install:
-  command: sleep 5s
-build:
-  command: sleep 5s
+isEnabled: true
+image:
+  imageFrom: europe-west3-docker.pkg.dev/brdata-live/cloud-deploy-images/br24-suppl-comment-detector-base-image
 run:
-  command: sleep 1h
-envs:
-  - name: TEST
-    value: my-test
+  command: /opt/venv/bin/python3.9 -m uvicorn api:APP --host 0.0.0.0 --port 3000
 settings:
   type: service
   security:
-    type: "login"
-    enableCors: false
+    type: "token"
+    enableCors: true
+    allowedGroups:
+      - br
+    useLoginFallback: true
