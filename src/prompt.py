@@ -4,7 +4,7 @@ from langchain_core.documents.base import Document
 
 
 RAG_PROMPT_TEMPLATE = (
-    "Beantworte die Frage basierend auf den folgenden Fakten:"
+    "Beantworte die Frage nur auf Basis der folgenden Fakten und bringe keine eigenes Wissen ein. Formuliere die Fakten nur als Antwort um:"
     "\n\n"
     "{bulletpoints}"
     "\n\n"

@@ -41,8 +41,8 @@ def get_context(
 ) -> list[Optional[Document]]:
     context = []
     docs = VECTOR_STORE.similarity_search(
-        query=query,
-        k=3,
+        query,
+        k=k,
         search_type=search_type,
     )
     if docs is not None and docs:

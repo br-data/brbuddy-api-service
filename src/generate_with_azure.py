@@ -9,6 +9,8 @@ from langchain_openai import AzureChatOpenAI
 MODEL = AzureChatOpenAI(
     openai_api_version="2024-02-15-preview",
     azure_deployment="Hackathon-GPT4O",
+    temperature=0,
+    max_tokens=500,
 )
 
 SYSTEM_PROMPT = (
@@ -25,7 +27,10 @@ SYSTEM_PROMPT = (
 def generate_answer(
     prompt: str,
     history: list[Optional[Union[SystemMessage, HumanMessage]]],
-    system_prompt: str = SYSTEM_PROMPT
+    system_prompt: str = SYSTEM_PROMPT,
+    max_len: int = 500,
+    temperature: int = 0,
+    top_p: float = 0.5
 ) -> Tuple[str, list[Union[SystemMessage, HumanMessage]]]:
     if not history:
         history.append(
