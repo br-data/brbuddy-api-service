@@ -44,4 +44,7 @@ settings:
     enableCors: true
     allowedGroups:
       - br
-    useLoginFallback: true
+    useLoginFallback: false
+    corsOrigins:
+      - http://localhost:3000
+      - https://brbuddy.brdata-dev.de
