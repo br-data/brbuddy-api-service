@@ -1,14 +1,13 @@
-from typing import Optional, Generator
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 import uvicorn
 
-from langchain_core.documents.base import Document
 
 from interface.response_models import ResponseModel, CTA, CTAType
 from interface.request_models import RequestModel
 from src.context import get_context
+from src.tools import generate_cta
 #from src.generate_with_azure import generate_answer
 from src.generate_with_openai import generate_answer
 from src.prompt import assemble_prompt
@@ -61,15 +60,6 @@ def answer_a_question(query: RequestModel) -> ResponseModel:
         cta=list(generate_cta(context)),
         refs=refs
     )
-
-
-def generate_cta(context: list[Optional[Document]]) -> Generator[CTA, None, None]:
-    for c in context:
-        yield CTA(
-            type=CTAType.LINK,
-            text=c.metadata["title"],
-            payload=f"https://brbuddy-api-service-volume.brdata-dev.de/{c.metadata['title']}"
-        )
 
 
 if __name__ == "__main__":
