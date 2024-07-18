@@ -1,10 +1,12 @@
+from typing import Optional, Generator
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 import uvicorn
 
+from langchain_core.documents.base import Document
 
-from interface.response_models import ResponseModel
+from interface.response_models import ResponseModel, CTA, CTAType
 from interface.request_models import RequestModel
 from src.context import get_context
 #from src.generate_with_azure import generate_answer
@@ -51,14 +53,24 @@ def answer_a_question(query: RequestModel) -> ResponseModel:
     context = get_context(query.question)
     prompt = assemble_prompt(query.question, context)
     answer = generate_answer(prompt)
+    refs = [c.metadata["title"] for c in context]
     return ResponseModel(
         status="ok",
         msg="Successfully generated answer",
         answer=answer,
-        cta=[c.metadata["metadata_storage_path"] for c in context],
-        refs=[c.metadata["title"] for c in context]
+        cta=list(generate_cta(context)),
+        refs=refs
     )
 
 
+def generate_cta(context: list[Optional[Document]]) -> Generator[CTA, None, None]:
+    for c in context:
+        yield CTA(
+            type=CTAType.LINK,
+            text=c.metadata["title"],
+            payload=f"todo/{c.metadata['title']}"
+        )
+
+
 if __name__ == "__main__":
-    uvicorn.run(APP, host="0.0.0.0", port=3000, timeout_keep_alive=20)
+    uvicorn.run(APP, host="0.0.0.0", port=3000)
