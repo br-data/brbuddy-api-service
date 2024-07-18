@@ -4,6 +4,31 @@ install:
   command: apt update && pip install -r requirements.txt
 run:
   command: python api.py
+envs:
+  - name: AZURE_ENDPOINT
+    value: https://hackathon-openai-1.openai.azure.com/
+  - name: AZURE_OPENAI_API_KEY
+    value: sm://{{.projectId}}/AZURE_OPENAI_API_KEY
+  - name: AZURE_OPENAI_API_VERSION
+    value: "2024-06-01"
+  - name: AZURE_OPENAI_DEPLOYMENT
+    value: "alt-text-gpt-4"
+  - name: AZURE_DEPLOYMENT
+    value: "Hackathon-Embeddings-ADA"
+  - name: VECTOR_STORE_ADDRESS
+    value: "https://hackathon-ai-search-1.search.windows.net"
+  - name: VECTOR_STORE_PASSWORD
+    value: sm://{{.projectId}}/VECTOR_STORE_PASSWORD
+  - name: INDEX_NAME
+    value: "buddy-ois1"
+  - name: AZURESEARCH_FIELDS_CONTENT_VECTOR
+    value: "text_vector"
+  - name: AZURESEARCH_FIELDS_CONTENT
+    value: "chunk"
+  - name: AZURESEARCH_FIELDS_ID
+    value: "chunk_id"
+  - name: OPENAI_API_KEY
+    value: sm://{{.projectId}}/openai-lab-token
 settings:
   type: service
   security:

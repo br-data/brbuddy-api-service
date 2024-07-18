@@ -6,6 +6,10 @@ import uvicorn
 
 from interface.response_models import ResponseModel
 from interface.request_models import RequestModel
+from src.context import get_context
+#from src.generate_with_azure import generate_answer
+from src.generate_with_openai import generate_answer
+from src.prompt import assemble_prompt
 
 
 APP = FastAPI(
@@ -44,12 +48,15 @@ async def redirect():
     response_model=ResponseModel
 )
 def answer_a_question(query: RequestModel) -> ResponseModel:
+    context = get_context(query.question)
+    prompt = assemble_prompt(query.question, context)
+    answer = generate_answer(prompt)
     return ResponseModel(
         status="ok",
         msg="Successfully generated answer",
-        answer="Working on it",
-        cta=[],
-        refs=[]
+        answer=answer,
+        cta=[c.metadata["metadata_storage_path"] for c in context],
+        refs=[c.metadata["title"] for c in context]
     )
 
 

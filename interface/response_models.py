@@ -4,7 +4,7 @@ from typing import Mapping, Any
 
 class ResponseModel(BaseModel):
     answer: str
-    refs: list[Mapping]
+    refs: list[str]
     status: str
     msg: str
     cta: list[Any]
