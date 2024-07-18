@@ -31,6 +31,10 @@ envs:
     value: sm://{{.projectId}}/openai-lab-token
 settings:
   type: service
+  persistentVolume:
+    shared: true
+    size: 1 # Gigabytes
+    mountPath: /data/test/
   security:
     type: "token"
     enableCors: true
