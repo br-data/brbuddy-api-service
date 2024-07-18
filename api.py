@@ -68,7 +68,7 @@ def generate_cta(context: list[Optional[Document]]) -> Generator[CTA, None, None
         yield CTA(
             type=CTAType.LINK,
             text=c.metadata["title"],
-            payload=f"todo/{c.metadata['title']}"
+            payload=f"https://brbuddy-api-service-volume.brdata-dev.de/{c.metadata['title']}"
         )
 
 
