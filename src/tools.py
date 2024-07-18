@@ -1,6 +1,6 @@
-from typing import Optional, Generator
+from typing import Optional, Generator, Mapping, Union
 from langchain_core.documents.base import Document
-
+from langchain_core.messages import HumanMessage, SystemMessage
 from interface.response_models import CTA, CTAType
 from urllib import parse
 
@@ -13,4 +13,3 @@ def generate_cta(context: list[Optional[Document]]) -> Generator[CTA, None, None
             text=c.metadata["title"],
             payload=f"https://brbuddy-api-service-volume.brdata-dev.de/share/URV7wHnY/{norm_name}"
         )
-

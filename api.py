@@ -4,6 +4,9 @@ from starlette.responses import RedirectResponse
 import uvicorn
 
 
+from langchain.load.dump import dumps
+from langchain.load.load import loads
+
 from interface.response_models import ResponseModel, CTA, CTAType
 from interface.request_models import RequestModel
 from src.context import get_context
@@ -49,16 +52,23 @@ async def redirect():
     response_model=ResponseModel
 )
 def answer_a_question(query: RequestModel) -> ResponseModel:
+    question = query.question
+    if query.history is not None:
+        history = loads(query.history)
+    else:
+        history = []
+
     context = get_context(query.question)
     prompt = assemble_prompt(query.question, context)
-    answer = generate_answer(prompt)
+    answer, history = generate_answer(prompt, history)
     refs = [c.metadata["title"] for c in context]
     return ResponseModel(
         status="ok",
         msg="Successfully generated answer",
         answer=answer,
         cta=list(generate_cta(context)),
-        refs=refs
+        refs=refs,
+        history=dumps(history)
     )
 
 

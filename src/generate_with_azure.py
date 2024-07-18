@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Optional, Union, Tuple
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.documents.base import Document
@@ -22,15 +22,20 @@ SYSTEM_PROMPT = (
 )
 
 
-def generate_answer(prompt: str, system_prompt: str = SYSTEM_PROMPT) -> str:
-    message = SystemMessage(
-        content=system_prompt
-    )
-    message = HumanMessage(
-        content=prompt
-    )
-    result = MODEL.invoke([message])
-    return result.content
+def generate_answer(
+    prompt: str,
+    history: list[Optional[Union[SystemMessage, HumanMessage]]],
+    system_prompt: str = SYSTEM_PROMPT
+) -> Tuple[str, list[Union[SystemMessage, HumanMessage]]]:
+    if not history:
+        history.append(
+            SystemMessage(
+                content=system_prompt
+            )
+        )
+    history.append(HumanMessage(content=prompt))
+    result = MODEL.invoke(history)
+    return result.content, history
 
 
 if __name__ == "__main__":

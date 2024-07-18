@@ -25,3 +25,4 @@ class ResponseModel(BaseModel):
     status: str
     msg: str
     cta: list[CTA]
+    history: str
