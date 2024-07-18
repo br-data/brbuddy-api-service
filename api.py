@@ -54,7 +54,7 @@ async def redirect():
 def answer_a_question(query: RequestModel) -> ResponseModel:
     question = query.question
     if "dienst" in question.lower() and "handy" in question.lower():
-        question = "Wo kahn ich mein Dienst-Handy bestellen?"
+        question = "Wo kann ich mein Dienst-Handy bestellen?"
 
     if query.history is not None:
         history = loads(query.history)
