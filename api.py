@@ -8,8 +8,8 @@ from interface.response_models import ResponseModel, CTA, CTAType
 from interface.request_models import RequestModel
 from src.context import get_context
 from src.tools import generate_cta
-#from src.generate_with_azure import generate_answer
-from src.generate_with_openai import generate_answer
+from src.generate_with_azure import generate_answer
+#from src.generate_with_openai import generate_answer
 from src.prompt import assemble_prompt
 
 

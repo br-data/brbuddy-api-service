@@ -29,6 +29,10 @@ envs:
     value: "chunk_id"
   - name: OPENAI_API_KEY
     value: sm://{{.projectId}}/openai-lab-token
+  - name: AZURE_OPENAI_ENDPOINT
+    value: https://hackathon-openai-1.openai.azure.com
+  - name: AZURE_OPENAI_CHAT_DEPLOYMENT_NAME
+    value: chat
 settings:
   type: service
   persistentVolume:

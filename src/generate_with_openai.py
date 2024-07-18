@@ -26,4 +26,4 @@ def generate_answer(prompt: str, system_prompt: str=SYSTEM_PROMPT) -> str:
 
 
 if __name__ == "__main__":
-    print(generate_answer("Tell mie a joke"))
+    print(generate_answer("Tell me a joke"))
