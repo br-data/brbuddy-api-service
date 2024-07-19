@@ -1,3 +1,4 @@
+"""Load environment variables"""
 import os
 
 AZURE_ENDPOINT: str = os.environ["AZURE_ENDPOINT"]
