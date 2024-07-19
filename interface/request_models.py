@@ -1,10 +1,12 @@
-from typing import Mapping, Optional, Union
-from pydantic import BaseModel
+"""Request models for BRBuddy backend requests."""
 
-from langchain_core.messages import HumanMessage, SystemMessage
+from typing import Mapping, Optional
+from pydantic import BaseModel
 
 
 class RequestModel(BaseModel):
+    """API request model"""
+
     question: str
     context: Optional[Mapping] = None
     assistant_id: Optional[str] = None
